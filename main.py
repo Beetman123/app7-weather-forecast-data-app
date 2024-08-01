@@ -10,8 +10,8 @@ days = st.slider("Forecast Days", min_value=1, max_value=5,
 option = st.selectbox("Select data to view", ("Temperature", "Sky"))
 st.subheader(f"Temperature for the next {days} days in {place}")
 
-try:
-    if place:
+if place:
+    try:
         # Get the temperature/sky data
         filtered_data = get_data(place, days)
 
@@ -27,5 +27,6 @@ try:
             weather_forecast = [dict["weather"][0]["main"] for dict in filtered_data]
             for weather in weather_forecast:
                 st.image(f"images/{str(weather).lower()}.png", width=115)
-except KeyError:
-    st.write(f"Our apologies but we couldn't find {place} in our database")
+
+    except KeyError:
+        st.write(f"Our apologies but we couldn't find {place} in our database")
